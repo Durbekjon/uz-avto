@@ -1,18 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ContractsController } from './contracts.controller';
+import { Test, TestingModule } from '@nestjs/testing'
+import { ContractsController } from './contracts.controller'
+import { PrismaService } from '../prisma/prisma.service'
+
 
 describe('ContractsController', () => {
-  let controller: ContractsController;
+  let controller: ContractsController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ContractsController],
-    }).compile();
+      imports: [PrismaService],
+    }).compile()
 
-    controller = module.get<ContractsController>(ContractsController);
-  });
+    controller = module.get<ContractsController>(ContractsController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})

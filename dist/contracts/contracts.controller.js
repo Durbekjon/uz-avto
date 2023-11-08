@@ -20,8 +20,8 @@ let ContractsController = class ContractsController {
     constructor(contractsService) {
         this.contractsService = contractsService;
     }
-    async getAll() {
-        return this.contractsService.getAll();
+    async getAll(page) {
+        return this.contractsService.getAll(page);
     }
     async getUnique(id) {
         return this.contractsService.getUnique(id);
@@ -39,8 +39,9 @@ let ContractsController = class ContractsController {
 exports.ContractsController = ContractsController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "getAll", null);
 __decorate([

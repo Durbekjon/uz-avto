@@ -3,7 +3,7 @@ import { ContractsDto } from './dto/Contracts.dto';
 export declare class ContractsController {
     private contractsService;
     constructor(contractsService: ContractsService);
-    getAll(): Promise<({
+    getAll(page: number): Promise<({
         client: {
             id: number;
             fname: string;

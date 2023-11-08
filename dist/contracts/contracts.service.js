@@ -16,12 +16,14 @@ let ContractsService = class ContractsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getAll() {
+    async getAll(page) {
         return await this.prisma.contracts.findMany({
             include: {
                 client: true,
                 car: true,
             },
+            take: 10,
+            skip: 10 * (page - 1),
         });
     }
     async getUnique(id) {

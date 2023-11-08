@@ -1,17 +1,17 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
 export class ContractsDto {
-  navbat: number;
+  navbat: number
   @IsNotEmpty()
   @IsString()
-  ready_date: string;
+  ready_date: string
   @IsNotEmpty()
   @IsNumber()
-  client: number;
+  client: number
   @IsNotEmpty()
   @IsNumber()
-  car: number;
+  car: number
   @IsNotEmpty()
   @IsBoolean()
-  payment: boolean;
+  payment: boolean
 }

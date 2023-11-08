@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export declare class ContractsService {
     private prisma;
     constructor(prisma: PrismaService);
-    getAll(): Promise<({
+    getAll(page: number): Promise<({
         client: {
             id: number;
             fname: string;
