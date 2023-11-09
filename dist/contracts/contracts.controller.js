@@ -20,8 +20,11 @@ let ContractsController = class ContractsController {
     constructor(contractsService) {
         this.contractsService = contractsService;
     }
-    async getAll(page) {
-        return this.contractsService.getAll(page);
+    async getAll() {
+        return this.contractsService.getAll();
+    }
+    async getPaginated(page) {
+        return this.contractsService.getPaginated(page);
     }
     async getUnique(id) {
         return this.contractsService.getUnique(id);
@@ -39,11 +42,17 @@ let ContractsController = class ContractsController {
 exports.ContractsController = ContractsController;
 __decorate([
     (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ContractsController.prototype, "getAll", null);
+__decorate([
+    (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], ContractsController.prototype, "getAll", null);
+], ContractsController.prototype, "getPaginated", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

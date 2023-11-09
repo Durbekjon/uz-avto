@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -14,10 +15,10 @@ model User {
   fname String
   lname String
   email String @unique
-  phone_number String @unique
+  phone_number Int @unique
+  role Role @default(USER)
   password String
   token String?
-
   contracts  Contracts[]
 
 
@@ -56,4 +57,10 @@ model Contracts {
 model Cash {
   id Int @id @default(autoincrement())
   cash Int
+}
+enum Role {
+  ADMIN    @map("admin")
+  USER @map("user")
+
+  @@map("_Role")
 }

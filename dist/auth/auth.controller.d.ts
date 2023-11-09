@@ -9,7 +9,8 @@ export declare class AuthController {
         fname: string;
         lname: string;
         email: string;
-        phone_number: string;
+        phone_number: number;
+        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;

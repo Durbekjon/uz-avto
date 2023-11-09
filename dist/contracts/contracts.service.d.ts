@@ -1,15 +1,16 @@
 import { ContractsDto } from './dto/Contracts.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 export declare class ContractsService {
     private prisma;
     constructor(prisma: PrismaService);
-    getAll(page: number): Promise<({
+    getAll(): Promise<({
         client: {
             id: number;
             fname: string;
             lname: string;
             email: string;
-            phone_number: string;
+            phone_number: number;
+            role: import(".prisma/client").$Enums.Role;
             password: string;
             token: string;
             created_at: Date;
@@ -34,6 +35,16 @@ export declare class ContractsService {
         created_at: Date;
         updatedAt: Date;
     })[]>;
+    getPaginated(page: number): Promise<{
+        id: number;
+        navbat: number;
+        ready_date: string;
+        clientId: number;
+        carId: number;
+        payment: boolean;
+        created_at: Date;
+        updatedAt: Date;
+    }[]>;
     getUnique(id: number): Promise<{
         id: number;
         navbat: number;

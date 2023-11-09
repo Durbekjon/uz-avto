@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
+const prisma_service_1 = require("../prisma/prisma.service");
 const common_1 = require("@nestjs/common");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
-const at_strategy_1 = require("./strategies/at.strategy");
-const rt_strategy_1 = require("./strategies/rt.strategy");
+const at_strategy_1 = require("../users/strategies/at.strategy");
+const rt_strategy_1 = require("../users/strategies/rt.strategy");
 const jwt_1 = require("@nestjs/jwt");
-const prisma_service_1 = require("../prisma/prisma.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;

@@ -30,8 +30,9 @@ __decorate([
 ], RegisterDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(9),
+    __metadata("design:type", Number)
 ], RegisterDto.prototype, "phone_number", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),

@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { Tokens } from './type/tokens.type';
 import { JwtService } from '@nestjs/jwt';
@@ -11,7 +11,8 @@ export declare class AuthService {
         fname: string;
         lname: string;
         email: string;
-        phone_number: string;
+        phone_number: number;
+        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
@@ -27,7 +28,8 @@ export declare class AuthService {
         fname: string;
         lname: string;
         email: string;
-        phone_number: string;
+        phone_number: number;
+        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;

@@ -8,7 +8,6 @@ describe('AuthController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-      imports: [PrismaService],
     }).compile()
 
     controller = module.get<AuthController>(AuthController)

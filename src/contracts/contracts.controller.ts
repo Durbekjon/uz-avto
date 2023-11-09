@@ -15,8 +15,12 @@ import { ContractsDto } from './dto/Contracts.dto'
 export class ContractsController {
   constructor(private contractsService: ContractsService) {}
   @Get()
-  async getAll(@Query('page') page: number) {
-    return this.contractsService.getAll(page)
+  async getAll() {
+    return this.contractsService.getAll()
+  }
+  @Get()
+  async getPaginated(@Query('page') page: number) {
+    return this.contractsService.getPaginated(page)
   }
 
   @Get(':id')
@@ -24,6 +28,7 @@ export class ContractsController {
     return this.contractsService.getUnique(id)
   }
 
+  
   @Post()
   async create(@Body() dto: ContractsDto) {
     return this.contractsService.create(dto)

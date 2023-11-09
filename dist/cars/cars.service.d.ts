@@ -1,4 +1,4 @@
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CarsDto } from './dto/cars.dto';
 export declare class CarsService {
     private prisma;

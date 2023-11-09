@@ -5,16 +5,25 @@ import { PrismaService } from '../prisma/prisma.service'
 @Injectable()
 export class ContractsService {
   constructor(private prisma: PrismaService) {}
-  async getAll(page: number) {
+  async getAll() {
     return await this.prisma.contracts.findMany({
       include: {
         client: true,
         car: true,
       },
+    })
+  }
+  
+  async getPaginated(page: number) {
+    return await this.prisma.contracts.findMany({
       take: 10,
+      orderBy: {
+        id: 'desc',
+      },
       skip: 10 * (page - 1),
     })
   }
+
   async getUnique(id: number) {
     return this.prisma.contracts.findUnique({
       where: {

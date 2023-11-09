@@ -16,13 +16,20 @@ let ContractsService = class ContractsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getAll(page) {
+    async getAll() {
         return await this.prisma.contracts.findMany({
             include: {
                 client: true,
                 car: true,
             },
+        });
+    }
+    async getPaginated(page) {
+        return await this.prisma.contracts.findMany({
             take: 10,
+            orderBy: {
+                id: 'desc',
+            },
             skip: 10 * (page - 1),
         });
     }
