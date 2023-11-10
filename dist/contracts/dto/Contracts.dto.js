@@ -10,26 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContractsDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class ContractsDto {
 }
 exports.ContractsDto = ContractsDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Confrim the example',
+        example: '2023 5-december',
+    }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ContractsDto.prototype, "ready_date", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Confrim the example',
+        example: 1,
+    }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], ContractsDto.prototype, "client", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Confrim the example',
+        example: 1,
+    }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], ContractsDto.prototype, "car", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Confrim the example',
+        example: true,
+    }),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { ContractsDto } from './dto/Contracts.dto'
 import { PrismaService } from '../prisma/prisma.service'
 
@@ -13,7 +13,7 @@ export class ContractsService {
       },
     })
   }
-  
+
   async getPaginated(page: number) {
     return await this.prisma.contracts.findMany({
       take: 10,
@@ -25,11 +25,16 @@ export class ContractsService {
   }
 
   async getUnique(id: number) {
-    return this.prisma.contracts.findUnique({
+    const contract = this.prisma.contracts.findUnique({
       where: {
         id: Number(id),
       },
     })
+    if (contract) {
+      return contract
+    } else {
+      throw new NotFoundException(`Contract data with id: '${id}' not found`)
+    }
   }
   async create(dto: ContractsDto) {
     const nav = await this.prisma.contracts.findMany()
@@ -64,32 +69,50 @@ export class ContractsService {
   }
 
   async update(id: number, dto: ContractsDto) {
-    return await this.prisma.contracts.update({
+    const extContract = await this.prisma.contracts.findUnique({
       where: {
         id: Number(id),
       },
-      data: {
-        ready_date: dto.ready_date,
-        client: {
-          connect: {
-            id: Number(dto.client),
-          },
-        },
-        car: {
-          connect: {
-            id: Number(dto.car),
-          },
-        },
-        payment: dto.payment,
-      },
     })
+    if (extContract) {
+      return await this.prisma.contracts.update({
+        where: {
+          id: Number(id),
+        },
+        data: {
+          ready_date: dto.ready_date,
+          client: {
+            connect: {
+              id: Number(dto.client),
+            },
+          },
+          car: {
+            connect: {
+              id: Number(dto.car),
+            },
+          },
+          payment: dto.payment,
+        },
+      })
+    } else {
+      throw new NotFoundException(`Contract data with id: '${id}' not found`)
+    }
   }
   async delete(id: number) {
-    await this.prisma.contracts.delete({
+    const extContract = await this.prisma.contracts.findUnique({
       where: {
         id: Number(id),
       },
     })
+    if (extContract) {
+      await this.prisma.contracts.delete({
+        where: {
+          id: Number(id),
+        },
+      })
+    } else {
+      throw new NotFoundException(`Contract data with id: '${id}' not found`)
+    }
   }
   async addToCash(price: number) {
     const cash = this.prisma.cash.findMany({})

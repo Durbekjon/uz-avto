@@ -37,6 +37,14 @@ let CarsService = class CarsService {
         });
     }
     async update(id, dto) {
+        const existingCar = await this.prisma.cars.findUnique({
+            where: {
+                id: Number(id),
+            },
+        });
+        if (!existingCar) {
+            throw new common_1.NotFoundException(`Car with id ${id} not found`);
+        }
         return await this.prisma.cars.update({
             where: {
                 id: Number(id),
@@ -50,11 +58,22 @@ let CarsService = class CarsService {
         });
     }
     async delete(id) {
-        await this.prisma.cars.delete({
+        const existingCar = await this.prisma.cars.findUnique({
             where: {
                 id: Number(id),
             },
         });
+        if (!existingCar) {
+            throw new common_1.NotFoundException(`Car with id ${id} not found`);
+        }
+        else {
+            await this.prisma.cars.delete({
+                where: {
+                    id: Number(id),
+                },
+            });
+            return 'Car deleted';
+        }
     }
 };
 exports.CarsService = CarsService;

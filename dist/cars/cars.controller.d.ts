@@ -39,5 +39,5 @@ export declare class CarsController {
         created_at: Date;
         updatedAt: Date;
     }>;
-    delete(id: number): Promise<void>;
+    delete(id: number): Promise<string>;
 }

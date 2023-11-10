@@ -23,38 +23,36 @@ let AuthService = class AuthService {
         return this.prisma.user.findMany();
     }
     async register(dto) {
-        const user = await this.prisma.user.findUnique({
+        const password = await this.dataHasher(dto.password);
+        const existingUser = await this.prisma.user.findUnique({
             where: {
                 email: dto.email,
             },
         });
-        if (user) {
-            throw new common_1.ForbiddenException('This email is already registered');
-        }
-        else {
-            const password = await this.dataHasher(dto.password);
-            console.log(await this.prisma.user.findUnique({
-                where: {
-                    email: dto.email,
-                },
-            }));
-            if (user) {
-                const tokens = await this.getTokens(user.id, user.email);
-                return await this.updateTokens(user.id, tokens.refresh_token), tokens;
+        if (existingUser) {
+            const passwordMatches = await bcrypt.compare(dto.password, existingUser.password);
+            if (passwordMatches) {
+                const tokens = await this.getTokens(existingUser.id, existingUser.email);
+                await this.updateTokens(existingUser.id, tokens.refresh_token);
+                return tokens;
             }
             else {
-                const newUser = await this.prisma.user.create({
-                    data: {
-                        fname: dto.fname,
-                        lname: dto.lname,
-                        email: dto.email,
-                        phone_number: Number(dto.phone_number),
-                        password,
-                    },
-                });
-                const tokens = await this.getTokens(newUser.id, newUser.email);
-                return await this.updateTokens(newUser.id, tokens.refresh_token), tokens;
+                throw new common_1.ForbiddenException('User already registered');
             }
+        }
+        else {
+            const newUser = await this.prisma.user.create({
+                data: {
+                    fname: dto.fname,
+                    lname: dto.lname,
+                    email: dto.email,
+                    phone_number: dto.phone_number,
+                    password,
+                },
+            });
+            const tokens = await this.getTokens(newUser.id, newUser.email);
+            await this.updateTokens(newUser.id, tokens.refresh_token);
+            return tokens;
         }
     }
     async login(dto) {
