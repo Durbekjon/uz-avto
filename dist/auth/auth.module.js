@@ -20,7 +20,7 @@ exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, at_strategy_1.AtStrategy, rt_strategy_1.RtStrategy, prisma_service_1.PrismaService],
+        providers: [auth_service_1.AuthService, at_strategy_1.AtStrategy, rt_strategy_1.RtStrategy, prisma_service_1.PrismaService, jwt_1.JwtService],
         imports: [jwt_1.JwtModule.register({})],
     })
 ], AuthModule);

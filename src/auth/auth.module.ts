@@ -4,11 +4,11 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 import { AtStrategy } from '../users/strategies/at.strategy'
 import { RtStrategy } from '../users/strategies/rt.strategy'
-import { JwtModule } from '@nestjs/jwt'
+import { JwtModule, JwtService } from '@nestjs/jwt'
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy, PrismaService],
+  providers: [AuthService, AtStrategy, RtStrategy, PrismaService, JwtService],
   imports: [JwtModule.register({})],
 })
 export class AuthModule {}
