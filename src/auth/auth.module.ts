@@ -17,12 +17,12 @@ import { MailerModule } from '@nestjs-modules/mailer'
         host: 'smtp.elasticemail.com',
         port: 2525,
         auth: {
-          user: 'durbeksaydaliyev798@gmail.com',
-          pass: 'BC1F92BA6621B95F407D72873229DBBB1064',
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD,
         },
       },
       defaults: {
-        from: '"Durbekjon" <durbeksaydaliyev798@gmail.com>', // Replace with your Elastic Email email address
+        from: '"No reply" <No reply>', // Replace with your Elastic Email email address
       },
     }),
   ],

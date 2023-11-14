@@ -121,7 +121,7 @@ let AuthService = class AuthService {
     }
     async send() {
         this.mailer.sendMail({
-            to: 'saydaliyevdurbek0512@gmail.com',
+            to: '12012665909@gmail.com',
             from: 'durbeksaydaliyev798@gmail.com',
             subject: 'Testing',
             text: 'Hi friend',
