@@ -14,12 +14,10 @@ const prisma_service_1 = require("../prisma/prisma.service");
 const common_1 = require("@nestjs/common");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
-const mailer_1 = require("@nestjs-modules/mailer");
 let AuthService = class AuthService {
-    constructor(prisma, jwtService, mailer) {
+    constructor(prisma, jwtService) {
         this.prisma = prisma;
         this.jwtService = jwtService;
-        this.mailer = mailer;
     }
     async getAll() {
         return this.prisma.user.findMany();
@@ -119,21 +117,11 @@ let AuthService = class AuthService {
             },
         });
     }
-    async send() {
-        this.mailer.sendMail({
-            to: '12012665909@gmail.com',
-            from: 'durbeksaydaliyev798@gmail.com',
-            subject: 'Testing',
-            text: 'Hi friend',
-            html: '<b>Hi guys</b>',
-        });
-    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        jwt_1.JwtService,
-        mailer_1.MailerService])
+        jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

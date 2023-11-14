@@ -19,5 +19,4 @@ export declare class AuthController {
     register(dto: RegisterDto): Promise<import("./type/tokens.type").Tokens>;
     login(dto: LoginDto): Promise<import("./type/tokens.type").Tokens>;
     logout(req: Request): Promise<void>;
-    sendToEmail(): Promise<void>;
 }

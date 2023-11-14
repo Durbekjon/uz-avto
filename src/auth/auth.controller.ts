@@ -25,10 +25,4 @@ export class AuthController {
     const id = req.user
     return this.authService.logout(id)
   }
-
-  @Get('/send')
-  async sendToEmail() {
-    return this.authService.send()
-  }
 }
-  

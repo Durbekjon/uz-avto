@@ -14,7 +14,6 @@ const auth_service_1 = require("./auth.service");
 const at_strategy_1 = require("../users/strategies/at.strategy");
 const rt_strategy_1 = require("../users/strategies/rt.strategy");
 const jwt_1 = require("@nestjs/jwt");
-const mailer_1 = require("@nestjs-modules/mailer");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -22,22 +21,7 @@ exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, at_strategy_1.AtStrategy, rt_strategy_1.RtStrategy, prisma_service_1.PrismaService, jwt_1.JwtService],
-        imports: [
-            jwt_1.JwtModule.register({}),
-            mailer_1.MailerModule.forRoot({
-                transport: {
-                    host: 'smtp.elasticemail.com',
-                    port: 2525,
-                    auth: {
-                        user: process.env.EMAIL_USER,
-                        pass: process.env.EMAIL_PASSWORD,
-                    },
-                },
-                defaults: {
-                    from: '"No reply" <No reply>',
-                },
-            }),
-        ],
+        imports: [jwt_1.JwtModule.register({})],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map
