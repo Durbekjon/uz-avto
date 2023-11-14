@@ -34,6 +34,9 @@ let AuthController = class AuthController {
         const id = req.user;
         return this.authService.logout(id);
     }
+    async sendToEmail() {
+        return this.authService.send();
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -64,6 +67,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "logout", null);
+__decorate([
+    (0, common_1.Get)('/send'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "sendToEmail", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

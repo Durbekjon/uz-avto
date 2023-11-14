@@ -5,11 +5,13 @@ import { LoginDto, RegisterDto } from './dto/auth.dto'
 import * as bcrypt from 'bcrypt'
 import { Tokens } from './type/tokens.type'
 import { JwtService } from '@nestjs/jwt'
+import { MailerService } from '@nestjs-modules/mailer'
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private mailer: MailerService
   ) {}
   async getAll() {
     return this.prisma.user.findMany()
@@ -122,6 +124,15 @@ export class AuthService {
       data: {
         token: hashedToken,
       },
+    })
+  }
+  async send() {
+    this.mailer.sendMail({
+      to: 'saydaliyevdurbek0512@gmail.com',
+      from: 'durbeksaydaliyev798@gmail.com',
+      subject: 'Testing',
+      text: 'Hi friend',
+      html: '<b>Hi guys</b>',
     })
   }
 }

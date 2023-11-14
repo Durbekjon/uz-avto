@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service' // Adjust the import path accordingly
 import { PrismaService } from '../prisma/prisma.service'
 import { JwtService } from '@nestjs/jwt'
+import { MailerService } from '@nestjs-modules/mailer'
 
 describe('AuthController', () => {
   let controller: AuthController
@@ -10,7 +11,7 @@ describe('AuthController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
-      providers: [AuthService, PrismaService, JwtService], // Make sure AuthService is included in providers
+      providers: [AuthService, PrismaService, JwtService, MailerService], // Make sure AuthService is included in providers
     }).compile()
 
     controller = module.get<AuthController>(AuthController)
@@ -19,5 +20,4 @@ describe('AuthController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined()
   })
-  
 })

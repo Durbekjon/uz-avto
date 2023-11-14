@@ -2,10 +2,12 @@ import { PrismaService } from '../prisma/prisma.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { Tokens } from './type/tokens.type';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
 export declare class AuthService {
     private prisma;
     private jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
+    private mailer;
+    constructor(prisma: PrismaService, jwtService: JwtService, mailer: MailerService);
     getAll(): Promise<{
         id: number;
         fname: string;
@@ -35,4 +37,5 @@ export declare class AuthService {
         created_at: Date;
         updatedAt: Date;
     }>;
+    send(): Promise<void>;
 }
