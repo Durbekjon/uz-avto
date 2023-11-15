@@ -36,7 +36,7 @@ let ContractsService = class ContractsService {
     async getUnique(id) {
         const contract = this.prisma.contracts.findUnique({
             where: {
-                id: Number(id),
+                id: id,
             },
         });
         if (contract) {
@@ -55,12 +55,12 @@ let ContractsService = class ContractsService {
                 ready_date: dto.ready_date,
                 client: {
                     connect: {
-                        id: Number(dto.client),
+                        id: dto.client,
                     },
                 },
                 car: {
                     connect: {
-                        id: Number(dto.car),
+                        id: dto.car,
                     },
                 },
                 payment: dto.payment,
@@ -79,24 +79,24 @@ let ContractsService = class ContractsService {
     async update(id, dto) {
         const extContract = await this.prisma.contracts.findUnique({
             where: {
-                id: Number(id),
+                id: id,
             },
         });
         if (extContract) {
             return await this.prisma.contracts.update({
                 where: {
-                    id: Number(id),
+                    id: id,
                 },
                 data: {
                     ready_date: dto.ready_date,
                     client: {
                         connect: {
-                            id: Number(dto.client),
+                            id: dto.client,
                         },
                     },
                     car: {
                         connect: {
-                            id: Number(dto.car),
+                            id: dto.car,
                         },
                     },
                     payment: dto.payment,
@@ -110,13 +110,13 @@ let ContractsService = class ContractsService {
     async delete(id) {
         const extContract = await this.prisma.contracts.findUnique({
             where: {
-                id: Number(id),
+                id: id,
             },
         });
         if (extContract) {
             await this.prisma.contracts.delete({
                 where: {
-                    id: Number(id),
+                    id: id,
                 },
             });
         }

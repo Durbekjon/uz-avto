@@ -16,7 +16,7 @@ export class CarsService {
   async getUnique(id: number) {
     return this.prisma.cars.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
   }
@@ -33,7 +33,7 @@ export class CarsService {
   async update(id: number, dto: CarsDto) {
     const existingCar = await this.prisma.cars.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
 
@@ -45,7 +45,7 @@ export class CarsService {
     // Ma'lumot topildi, yangilashni davom ettiramiz
     return await this.prisma.cars.update({
       where: {
-        id: Number(id),
+        id: id,
       },
       data: {
         car_name: dto.car_name,
@@ -59,7 +59,7 @@ export class CarsService {
   async delete(id: number) {
     const existingCar = await this.prisma.cars.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
     if (!existingCar) {
@@ -67,7 +67,7 @@ export class CarsService {
     } else {
       await this.prisma.cars.delete({
         where: {
-          id: Number(id),
+          id: id,
         },
       })
       return 'Car deleted'

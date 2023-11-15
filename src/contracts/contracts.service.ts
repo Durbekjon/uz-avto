@@ -27,7 +27,7 @@ export class ContractsService {
   async getUnique(id: number) {
     const contract = this.prisma.contracts.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
     if (contract) {
@@ -46,12 +46,12 @@ export class ContractsService {
         ready_date: dto.ready_date,
         client: {
           connect: {
-            id: Number(dto.client),
+            id: dto.client,
           },
         },
         car: {
           connect: {
-            id: Number(dto.car),
+            id: dto.car,
           },
         },
         payment: dto.payment,
@@ -71,24 +71,24 @@ export class ContractsService {
   async update(id: number, dto: ContractsDto) {
     const extContract = await this.prisma.contracts.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
     if (extContract) {
       return await this.prisma.contracts.update({
         where: {
-          id: Number(id),
+          id: id,
         },
         data: {
           ready_date: dto.ready_date,
           client: {
             connect: {
-              id: Number(dto.client),
+              id: dto.client,
             },
           },
           car: {
             connect: {
-              id: Number(dto.car),
+              id: dto.car,
             },
           },
           payment: dto.payment,
@@ -101,13 +101,13 @@ export class ContractsService {
   async delete(id: number) {
     const extContract = await this.prisma.contracts.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     })
     if (extContract) {
       await this.prisma.contracts.delete({
         where: {
-          id: Number(id),
+          id: id,
         },
       })
     } else {
