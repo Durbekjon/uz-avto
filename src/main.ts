@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.setGlobalPrefix('v1')
   app.useGlobalPipes(new ValidationPipe())
   const config = new DocumentBuilder()
     .setTitle('Quiz mananger API')
@@ -13,7 +14,7 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
-  app.setGlobalPrefix('v1')
+
   await app.listen(3000)
 }
 bootstrap()
