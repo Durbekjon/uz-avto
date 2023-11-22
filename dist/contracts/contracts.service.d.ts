@@ -1,21 +1,9 @@
-import { ContractsDto } from './dto/Contracts.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { ContractsDto } from "./dto/Contracts.dto";
+import { PrismaService } from "../prisma/prisma.service";
 export declare class ContractsService {
     private prisma;
     constructor(prisma: PrismaService);
-    getAll(): Promise<({
-        client: {
-            id: number;
-            fname: string;
-            lname: string;
-            email: string;
-            phone_number: number;
-            role: import(".prisma/client").$Enums.Role;
-            password: string;
-            token: string;
-            created_at: Date;
-            updatedAt: Date;
-        };
+    getAll(uid: number): Promise<({
         car: {
             id: number;
             car_name: string;
@@ -24,6 +12,18 @@ export declare class ContractsService {
             car_price: number;
             created_at: Date;
             updatedAt: Date;
+        };
+        client: {
+            id: number;
+            fname: string;
+            email: string;
+            password: string;
+            token: string;
+            created_at: Date;
+            lname: string;
+            updatedAt: Date;
+            role: import(".prisma/client").$Enums.Role;
+            phone_number: number;
         };
     } & {
         id: number;
@@ -34,8 +34,8 @@ export declare class ContractsService {
         payment: boolean;
         created_at: Date;
         updatedAt: Date;
-    })[]>;
-    getPaginated(page: number): Promise<{
+    })[] | MethodDecorator>;
+    getPaginated(uid: number, page: number): Promise<MethodDecorator | {
         id: number;
         navbat: number;
         ready_date: string;
@@ -45,7 +45,7 @@ export declare class ContractsService {
         created_at: Date;
         updatedAt: Date;
     }[]>;
-    getUnique(id: number): Promise<{
+    getUnique(uid: number, id: number): Promise<{
         id: number;
         navbat: number;
         ready_date: string;
@@ -54,8 +54,8 @@ export declare class ContractsService {
         payment: boolean;
         created_at: Date;
         updatedAt: Date;
-    }>;
-    create(dto: ContractsDto): Promise<{
+    } | MethodDecorator>;
+    create(uid: number, dto: ContractsDto): Promise<{
         id: number;
         navbat: number;
         ready_date: string;
@@ -64,8 +64,8 @@ export declare class ContractsService {
         payment: boolean;
         created_at: Date;
         updatedAt: Date;
-    }>;
-    update(id: number, dto: ContractsDto): Promise<{
+    } | MethodDecorator>;
+    update(uid: number, id: number, dto: ContractsDto): Promise<{
         id: number;
         navbat: number;
         ready_date: string;
@@ -74,7 +74,7 @@ export declare class ContractsService {
         payment: boolean;
         created_at: Date;
         updatedAt: Date;
-    }>;
-    delete(id: number): Promise<void>;
+    } | MethodDecorator>;
+    delete(uid: number, id: number): Promise<void>;
     addToCash(price: number): Promise<void>;
 }

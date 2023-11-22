@@ -1,7 +1,7 @@
-import { PrismaService } from '../prisma/prisma.service';
-import { LoginDto, RegisterDto } from './dto/auth.dto';
-import { Tokens } from './type/tokens.type';
-import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from "../prisma/prisma.service";
+import { LoginDto, RegisterDto } from "./dto/auth.dto";
+import { Tokens } from "./type/tokens.type";
+import { JwtService } from "@nestjs/jwt";
 export declare class AuthService {
     private prisma;
     private jwtService;
@@ -9,14 +9,14 @@ export declare class AuthService {
     getAll(): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }[]>;
     register(dto: RegisterDto): Promise<Tokens>;
     login(dto: LoginDto): Promise<Tokens>;
@@ -26,13 +26,13 @@ export declare class AuthService {
     updateTokens(id: number, rt: string): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }>;
 }

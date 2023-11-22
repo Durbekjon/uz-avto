@@ -20,70 +20,76 @@ let ContractsController = class ContractsController {
     constructor(contractsService) {
         this.contractsService = contractsService;
     }
-    async getAll() {
-        return this.contractsService.getAll();
+    async getAll(uid) {
+        return this.contractsService.getAll(uid);
     }
-    async getPaginated(page) {
-        return this.contractsService.getPaginated(page);
+    async getPaginated(uid, page) {
+        return this.contractsService.getPaginated(uid, page);
     }
-    async getUnique(id) {
-        return this.contractsService.getUnique(id);
+    async getUnique(uid, id) {
+        return this.contractsService.getUnique(uid, id);
     }
-    async create(dto) {
-        return this.contractsService.create(dto);
+    async create(uid, dto) {
+        return this.contractsService.create(uid, dto);
     }
-    async update(id, dto) {
-        return this.contractsService.update(id, dto);
+    async update(uid, id, dto) {
+        return this.contractsService.update(uid, id, dto);
     }
-    async delete(id) {
-        return this.contractsService.delete(id);
+    async delete(uid, id) {
+        return this.contractsService.delete(uid, id);
     }
 };
 exports.ContractsController = ContractsController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('page')),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Query)("page")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "getPaginated", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "getUnique", null);
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Contracts_dto_1.ContractsDto]),
-    __metadata("design:returntype", Promise)
-], ContractsController.prototype, "create", null);
-__decorate([
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Contracts_dto_1.ContractsDto]),
     __metadata("design:returntype", Promise)
+], ContractsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)(":id"),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Contracts_dto_1.ContractsDto]),
+    __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Query)("uid", common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Promise)
 ], ContractsController.prototype, "delete", null);
 exports.ContractsController = ContractsController = __decorate([
-    (0, common_1.Controller)('contracts'),
+    (0, common_1.Controller)("contracts"),
     __metadata("design:paramtypes", [contracts_service_1.ContractsService])
 ], ContractsController);
 //# sourceMappingURL=contracts.controller.js.map

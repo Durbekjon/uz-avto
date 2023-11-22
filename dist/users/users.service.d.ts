@@ -6,25 +6,25 @@ export declare class UsersService {
     getUnique(id: number): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }>;
     search(search: string): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }[]>;
 }

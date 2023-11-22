@@ -16,78 +16,78 @@ let ContractsService = class ContractsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getAll() {
-        return await this.prisma.contracts.findMany({
-            include: {
-                client: true,
-                car: true,
-            },
-        });
-    }
-    async getPaginated(page) {
-        return await this.prisma.contracts.findMany({
-            take: 10,
-            orderBy: {
-                id: 'desc',
-            },
-            skip: 10 * (page - 1),
-        });
-    }
-    async getUnique(id) {
-        const contract = this.prisma.contracts.findUnique({
+    async getAll(uid) {
+        const checkAdmin = await this.prisma.user.findUnique({
             where: {
-                id: id,
+                id: uid,
             },
         });
-        if (contract) {
-            return contract;
+        if (checkAdmin.role === "ADMIN") {
+            return await this.prisma.contracts.findMany({
+                include: {
+                    client: true,
+                    car: true,
+                },
+            });
         }
         else {
-            throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            return (0, common_1.Redirect)("/");
         }
     }
-    async create(dto) {
-        const nav = await this.prisma.contracts.findMany();
-        const navbat = nav.length + 1;
-        const newContract = await this.prisma.contracts.create({
-            data: {
-                navbat: nav.length === 0 ? 1 : navbat,
-                ready_date: dto.ready_date,
-                client: {
-                    connect: {
-                        id: dto.client,
-                    },
-                },
-                car: {
-                    connect: {
-                        id: dto.car,
-                    },
-                },
-                payment: dto.payment,
-            },
-        });
-        const car = this.prisma.cars.findUnique({
+    async getPaginated(uid, page) {
+        const checkAdmin = await this.prisma.user.findUnique({
             where: {
-                id: dto.car,
+                id: uid,
             },
         });
-        if (newContract.payment === true && (await car).car_price !== 0) {
-            await this.addToCash((await car).car_price);
+        if (checkAdmin.role === "ADMIN") {
+            return await this.prisma.contracts.findMany({
+                take: 10,
+                orderBy: {
+                    id: "desc",
+                },
+                skip: 10 * (page - 1),
+            });
         }
-        return newContract;
+        else {
+            return (0, common_1.Redirect)("/");
+        }
     }
-    async update(id, dto) {
-        const extContract = await this.prisma.contracts.findUnique({
+    async getUnique(uid, id) {
+        const checkAdmin = await this.prisma.user.findUnique({
             where: {
-                id: id,
+                id: uid,
             },
         });
-        if (extContract) {
-            return await this.prisma.contracts.update({
+        if (checkAdmin.role === "ADMIN") {
+            const contract = this.prisma.contracts.findUnique({
                 where: {
                     id: id,
                 },
+            });
+            if (contract) {
+                return contract;
+            }
+            else {
+                throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            }
+        }
+        else {
+            return (0, common_1.Redirect)("/");
+        }
+    }
+    async create(uid, dto) {
+        const checkAdmin = await this.prisma.user.findUnique({
+            where: {
+                id: uid,
+            },
+        });
+        if (checkAdmin.role === "ADMIN") {
+            const nav = await this.prisma.contracts.findMany();
+            const navbat = nav.length + 1;
+            const newContract = await this.prisma.contracts.create({
                 data: {
+                    navbat: nav.length === 0 ? 1 : navbat,
                     ready_date: dto.ready_date,
                     client: {
                         connect: {
@@ -102,26 +102,83 @@ let ContractsService = class ContractsService {
                     payment: dto.payment,
                 },
             });
+            const car = this.prisma.cars.findUnique({
+                where: {
+                    id: dto.car,
+                },
+            });
+            if (newContract.payment === true && (await car).car_price !== 0) {
+                await this.addToCash((await car).car_price);
+            }
+            return newContract;
         }
         else {
-            throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            return (0, common_1.Redirect)("/");
         }
     }
-    async delete(id) {
-        const extContract = await this.prisma.contracts.findUnique({
+    async update(uid, id, dto) {
+        const checkAdmin = await this.prisma.user.findUnique({
             where: {
-                id: id,
+                id: uid,
             },
         });
-        if (extContract) {
-            await this.prisma.contracts.delete({
+        if (checkAdmin.role === "ADMIN") {
+            const extContract = await this.prisma.contracts.findUnique({
                 where: {
                     id: id,
                 },
             });
+            if (extContract) {
+                return await this.prisma.contracts.update({
+                    where: {
+                        id: id,
+                    },
+                    data: {
+                        ready_date: dto.ready_date,
+                        client: {
+                            connect: {
+                                id: dto.client,
+                            },
+                        },
+                        car: {
+                            connect: {
+                                id: dto.car,
+                            },
+                        },
+                        payment: dto.payment,
+                    },
+                });
+            }
+            else {
+                throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            }
         }
         else {
-            throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            return (0, common_1.Redirect)("/");
+        }
+    }
+    async delete(uid, id) {
+        const checkAdmin = await this.prisma.user.findUnique({
+            where: {
+                id: uid,
+            },
+        });
+        if (checkAdmin.role === "ADMIN") {
+            const extContract = await this.prisma.contracts.findUnique({
+                where: {
+                    id: id,
+                },
+            });
+            if (extContract) {
+                await this.prisma.contracts.delete({
+                    where: {
+                        id: id,
+                    },
+                });
+            }
+            else {
+                throw new common_1.NotFoundException(`Contract data with id: '${id}' not found`);
+            }
         }
     }
     async addToCash(price) {

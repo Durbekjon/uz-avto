@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -10,57 +7,57 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id Int @id @default(autoincrement())
-  fname String
-  lname String
-  email String @unique
-  phone_number Int @unique
-  role Role @default(USER)
-  password String
-  token String?
-  contracts  Contracts[]
+  id           Int         @id @default(autoincrement())
+  fname        String
+  email        String      @unique
+  password     String
+  token        String?
+  created_at   DateTime    @default(now())
+  lname        String
+  updatedAt    DateTime    @updatedAt
+  role         Role        @default(USER)
+  phone_number Int         @unique
+  contracts    Contracts[]
 
-
-  created_at  DateTime @default(now())
-  updatedAt DateTime @updatedAt
   @@map("User")
 }
+
 model Cars {
-  id Int @id @default(autoincrement())
-  car_name String
+  id           Int         @id @default(autoincrement())
+  car_name     String
   car_position Int
-  year Int
-  car_price Int
+  year         Int
+  car_price    Int
+  created_at   DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  contracts    Contracts[]
 
-  contracts  Contracts[]
-
-
-  created_at  DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
   @@map("Cars")
 }
+
 model Contracts {
-  id Int @id @default(autoincrement())
-  navbat Int
+  id         Int      @id @default(autoincrement())
+  navbat     Int
   ready_date String
-  client User @relation(fields: [clientId], references: [id] )
-  clientId Int
-  car Cars @relation(fields: [carId], references: [id])
-  carId Int
-  payment Boolean @default(false)
-  created_at  DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  clientId   Int
+  carId      Int
+  payment    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  car        Cars     @relation(fields: [carId], references: [id])
+  client     User     @relation(fields: [clientId], references: [id])
 }
 
 model Cash {
-  id Int @id @default(autoincrement())
+  id   Int @id @default(autoincrement())
   cash Int
 }
+
 enum Role {
-  ADMIN    @map("admin")
-  USER @map("user")
+  ADMIN @map("admin")
+  USER  @map("user")
 
   @@map("_Role")
 }

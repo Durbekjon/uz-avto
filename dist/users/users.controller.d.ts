@@ -6,26 +6,26 @@ export declare class UsersController {
     search(search: string): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }[]>;
     getUnique(id: number): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }>;
     getAll(): Promise<void>;
     setAdmin(req: Request): Promise<void>;

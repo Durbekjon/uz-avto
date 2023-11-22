@@ -37,7 +37,7 @@ let AuthService = class AuthService {
                 return tokens;
             }
             else {
-                throw new common_1.ForbiddenException('User already registered');
+                throw new common_1.ForbiddenException("User already registered");
             }
         }
         else {
@@ -62,11 +62,11 @@ let AuthService = class AuthService {
             },
         });
         if (!user) {
-            throw new common_1.ForbiddenException('User not found');
+            throw new common_1.ForbiddenException("User not found");
         }
         const passwordMathes = bcrypt.compare(dto.password, user.password);
         if (!passwordMathes)
-            throw new common_1.ForbiddenException('password did not match');
+            throw new common_1.ForbiddenException("password did not match");
         const tokens = await this.getTokens(user.id, user.email);
         return await this.updateTokens(user.id, tokens.refresh_token), tokens;
     }
@@ -90,14 +90,14 @@ let AuthService = class AuthService {
                 sub: id,
                 email,
             }, {
-                secret: 'at-secret',
+                secret: "at-secret",
                 expiresIn: 60 * 15,
             }),
             this.jwtService.signAsync({
                 sub: id,
                 email,
             }, {
-                secret: 'at-secret',
+                secret: "at-secret",
                 expiresIn: 60 * 60 * 24 * 7,
             }),
         ]);

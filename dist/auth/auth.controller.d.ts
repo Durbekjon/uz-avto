@@ -7,14 +7,14 @@ export declare class AuthController {
     getAll(): Promise<{
         id: number;
         fname: string;
-        lname: string;
         email: string;
-        phone_number: number;
-        role: import(".prisma/client").$Enums.Role;
         password: string;
         token: string;
         created_at: Date;
+        lname: string;
         updatedAt: Date;
+        role: import(".prisma/client").$Enums.Role;
+        phone_number: number;
     }[]>;
     register(dto: RegisterDto): Promise<import("./type/tokens.type").Tokens>;
     login(dto: LoginDto): Promise<import("./type/tokens.type").Tokens>;
